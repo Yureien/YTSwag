@@ -10,7 +10,7 @@ Also, accepting new feature ideas (create an issue) as long as they can be feasi
 
 1. The extension first tries to get the official Closed Caption of the video if available, and present it as lyrics. Cause the Closed Captions has a timer, it's possible to know when the lyrics start and end, and highlighting is done.
 2. As a backup, lyrics from Genius is taken in case CC is not available. This is done in a way similar to [SwagLyrics](https://github.com/SwagLyrics/SwagLyrics-For-Spotify).
-
+3. (Not implemented) Thinking of using something like https://audd.io but it costs money to implement T_T
 
 ## TODO list/Planned Features
 
