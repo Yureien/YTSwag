@@ -49,38 +49,6 @@ $(window).resize(function () {
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 // Make songs double-clickable
-var queueObserver = new MutationObserver(function (mutations, observer) {
-    $("ytmusic-player-queue-item").each(function (index) {
-        var elem = $(this);
-        $(this).off("dblclick").dblclick(function () {
-            $("ytmusic-play-button-renderer", elem).click();
-        });
-    });
+$(document).on('dblclick', '#contents > ytmusic-responsive-list-item-renderer, #contents > ytmusic-list-item-renderer, #contents > ytmusic-player-queue-item', function () {
+    $(this).find('.ytmusic-play-button-renderer').click();
 });
-
-queueObserver.observe(document.querySelector(".style-scope.ytmusic-player-queue"), {
-    subtree: true,
-    childList: true
-});
-
-var shelfObserver = new MutationObserver(function (mutations, observer) {
-    if ($("#contents.style-scope.ytmusic-section-list-renderer>ytmusic-playlist-shelf-renderer"))
-        $(".ytmusic-responsive-list-item-renderer, .ytmusic-list-item-renderer").each(function (index) {
-            var elem = $(this).parent('.ytmusic-shelf-renderer, .ytmusic-playlist-shelf-renderer');
-            $(this).off("dblclick").dblclick(function () {
-                console.log('hi');
-                $(".ytmusic-play-button-renderer", elem).click();
-            });
-        });
-});
-
-function observeShelf() {
-    var shelf = document.querySelector("#contents.style-scope.ytmusic-section-list-renderer");
-    if (shelf)
-        shelfObserver.observe(shelf, {
-            subtree: true,
-            childList: true
-        });
-    else setTimeout(observeShelf, 500);
-}
-observeShelf();
