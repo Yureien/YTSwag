@@ -6,6 +6,13 @@ Oh, and accepting logo submissions. (Read: Begging for a good logo, I suck at de
 
 Also, accepting new feature ideas (create an issue) as long as they can be feasibly implemented (offline mode, for one, cannot be feasibly implemented, atleast with a Chrome Extension).
 
+## Current Features
+
+1. Lyrics (From YouTube CC and Genius)
+2. Hide/show subtitles (globally)
+3. Hide/show queue
+4. Double clicking song makes it play
+
 ## Screenshots
 
 ![Lyrics - YouTube CC](screenshots/lyrics.png)

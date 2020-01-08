@@ -15,7 +15,8 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         var key = action + "Enabled";
         var btn = $(this);
         chrome.storage.sync.get([key], function (result) {
-            btn.attr("checked", result[key] == true);
+            if (result[key] !== undefined)
+                btn.attr("checked", result[key] === true);
         });
     });
     $("paper-toggle-button").click(function () {
@@ -43,4 +44,22 @@ function positionPopup() {
 
 $(window).resize(function () {
     positionPopup();
+});
+
+MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+// Make songs double-clickable
+var queueObserver = new MutationObserver(function(mutations, observer) {
+    $("ytmusic-player-queue-item").each(function (index) {
+        var elem = $(this);
+        $(this).off("dblclick").dblclick(function () {
+            console.log("hi");
+            $("ytmusic-play-button-renderer", elem).click();
+        });
+    });
+});
+
+queueObserver.observe(document.querySelector(".style-scope.ytmusic-player-queue"), {
+    subtree: true,
+    childList: true
 });

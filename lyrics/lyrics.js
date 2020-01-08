@@ -1,5 +1,4 @@
 $(".side-panel.style-scope.ytmusic-player-page:not('#lyrics-panel')").addClass("queue-panel"); // confusing with 2 panels
-
 chrome.storage.sync.get(['lyricsEnabled'], function (result) {
     var lyricsEnabled = false;
     lyricsEnabled = result['lyricsEnabled'] == true;
@@ -22,12 +21,31 @@ chrome.storage.sync.get(['lyricsEnabled'], function (result) {
             characterData: true
         });
     }
+});
 
+chrome.storage.sync.get(['subtitlesEnabled'], function (result) {
+    var subtitlesEnabled = false;
+    subtitlesEnabled = result['subtitlesEnabled'] === false;
+    if (subtitlesEnabled) {
+        ccObserver.observe(document.querySelector(".player-wrapper.style-scope.ytmusic-player"), {
+            subtree: true,
+            attributes: true,
+            childList: true, 
+            characterData: true
+        });
+    }
 });
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 var lastVid = null;
+
+var ccObserver = new MutationObserver(function(mutations, observer) {
+    var cc = $(".caption-window");
+    if (cc) {
+        cc.hide();
+    }
+});
 
 var observer = new MutationObserver(function(mutations, observer) {
     if ($(".ytp-title-link.yt-uix-sessionlink")) {
