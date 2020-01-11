@@ -106,7 +106,7 @@ function processGenius(title, byline) {
             var el = $('<div></div>');
             el.html(data);
             var lyrics = $(".lyrics", el).text().trim().replace(/\n/g, "<br>").trim();
-            if (!(!lyrics || 0 === lyrics.length))
+            if (!(!lyrics || 0 === lyrics.length) && lyrics != "[Instrumental]")
                 $("#lyrics").html(lyrics);
             else { // TODO: Better way to hide lyrics?
                 $("#lyrics-panel").hide();
