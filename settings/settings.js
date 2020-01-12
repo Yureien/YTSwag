@@ -32,6 +32,29 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
         $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
     });
+
+    $('#start-picture-in-picture').click(async function () {
+        const video = document.querySelector('#movie_player > div.html5-video-container > video');
+
+        if (!video || video.videoWidth === 0) {
+            if (document.pictureInPictureElement) {
+                await document.exitPictureInPicture();
+            }
+
+            return;
+        }
+
+        try {
+            if (video !== document.pictureInPictureElement) {
+                await video.requestPictureInPicture();
+            } else {
+                await document.exitPictureInPicture();
+            }
+        } catch (error) {
+            console.log(`> Error occurred while trying to start the pip mode: ${error}`);
+        }
+    });
+
     positionPopup();
 });
 
