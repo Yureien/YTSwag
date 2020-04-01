@@ -51,6 +51,7 @@ var observer = new MutationObserver(function(mutations, observer) {
     var url = location.href.includes('watch') ? location : $('.ytp-title-link.yt-uix-sessionlink')[0];
     var vid = url.href.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i)[1];
 
+    togglePIP();
     var style = lyricsDisplay();
     // Append style only 1 time
     if (!$('#lyrics-display')[0]) {
@@ -69,6 +70,15 @@ var observer = new MutationObserver(function(mutations, observer) {
         style.textContent = style.textContent.replace('block', 'none');
     }
 });
+
+function togglePIP() {
+    // Close PIP case not video
+    const video = $('#movie_player > div.html5-video-container > video')[0];
+    if ((!video || video.videoWidth === 0) &&
+    document.pictureInPictureElement) {
+        document.exitPictureInPicture();
+    }
+}
 
 function lyricsDisplay() {
     var style = $('#lyrics-display')[0] || document.createElement('style');
