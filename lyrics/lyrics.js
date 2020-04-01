@@ -7,17 +7,17 @@ chrome.storage.sync.get(['lyricsEnabled'], function (result) {
             $($.parseHTML(data)).insertBefore($('#main-panel'));
         });
 
-        observer.observe(document.querySelector(".title.ytmusic-player-bar"), {
+        observer.observe($(".title.ytmusic-player-bar")[0], {
             subtree: true,
             attributes: true,
-            childList: true, 
+            childList: true,
             characterData: true
         });
 
-        timeObserver.observe(document.querySelector(".time-info"), {
+        timeObserver.observe($(".time-info")[0], {
             subtree: true,
             attributes: true,
-            childList: true, 
+            childList: true,
             characterData: true
         });
     }
@@ -27,10 +27,10 @@ chrome.storage.sync.get(['subtitlesEnabled'], function (result) {
     var subtitlesEnabled = false;
     subtitlesEnabled = result['subtitlesEnabled'] === false;
     if (subtitlesEnabled) {
-        ccObserver.observe(document.querySelector(".player-wrapper.style-scope.ytmusic-player"), {
+        ccObserver.observe($(".player-wrapper.style-scope.ytmusic-player")[0], {
             subtree: true,
             attributes: true,
-            childList: true, 
+            childList: true,
             characterData: true
         });
     }
@@ -82,8 +82,8 @@ function processOfficial(vid) {
                 });
                 highlight = true;
             } else {
-                var byl = document.querySelector(".byline.ytmusic-player-bar");
-                var tit = document.querySelector(".title.ytmusic-player-bar");
+                var byl = $(".byline.ytmusic-player-bar")[0];
+                var tit = $(".title.ytmusic-player-bar")[0];
                 if (tit && byl)
                     processGenius(tit.textContent,
                                   byl.textContent);
@@ -118,7 +118,7 @@ function processGenius(title, byline) {
 
 
 var timeObserver = new MutationObserver(function(mutations, observer) {
-    var strtime = document.querySelector(".time-info").textContent.trim().split("/")[0].trim().split(":");
+    var strtime = $(".time-info")[0].textContent.trim().split("/")[0].trim().split(":");
     var secs = parseInt(strtime[0])*60+parseInt(strtime[1]);
     var sub = $(".subtitle[data-at='"+secs+"']");
     if (sub.length) {

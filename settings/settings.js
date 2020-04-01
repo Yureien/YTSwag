@@ -34,7 +34,7 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
     });
 
     $('#start-picture-in-picture').click(async function () {
-        const video = document.querySelector('#movie_player > div.html5-video-container > video');
+        const video = $('#movie_player > div.html5-video-container > video')[0];
 
         if (!video || video.videoWidth === 0) {
             if (document.pictureInPictureElement) {
