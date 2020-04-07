@@ -2,8 +2,8 @@
     "manifest_version": 2,
     "name": "YTSwag: Better YouTube Music (BETA)",
     "description": "Add nice features to YouTube Music! Lyrics, Discord Rich Presence, Utilities and more!",
-    "version": "0.1.5",
-    "version_name": "0.1.5 beta",
+    "version": "0.2",
+    "version_name": "0.2 beta",
     "permissions": [
         "https://genius.com/*",
         "https://video.google.com/*",

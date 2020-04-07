@@ -1,5 +1,7 @@
 # YTSwag: Better YouTube Music (BETA)
 
+**Current Version: 0.2 beta**
+
 This is a yet-under-construction project to add new features to Youtube Music! Beta version for testing available!
 
 Oh, and accepting logo submissions. (Read: Begging for a good logo, I suck at design)
@@ -56,3 +58,4 @@ You should check out their official terms linked above to read the official docu
 
 1. [SwagLyrics](https://github.com/SwagLyrics/SwagLyrics-For-Spotify) for letting me ~~steal~~ get code on how to get lyrics from Genius.
 2. [u/neluba](https://github.com/neluba)
+3. [GuiDevloper](https://github.com/GuiDevloper)
