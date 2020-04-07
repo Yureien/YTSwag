@@ -25,7 +25,15 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         var key = $(this).data("action") + "Enabled";
         let checked = $(this).attr('checked') ? true : false;
         chrome.storage.sync.set({ [key]: checked });
-        location.reload(true);
+        if (action === 'lyrics') {
+            // stores current state on DOM
+            var title = $(".title.ytmusic-player-bar")[0];
+            title.setAttribute('lyrics', checked);
+            $("#lyrics-panel")[0].style.display = checked ? 'block' : 'none';
+        } else {
+            // TODO: all actions without reload
+            location.reload(true);
+        }
     });
     $("#queueToggle").click(function () {
         $(".queue-panel").toggle();
@@ -34,7 +42,7 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
     });
 
     $('#start-picture-in-picture').click(async function () {
-        const video = document.querySelector('#movie_player > div.html5-video-container > video');
+        const video = $('#movie_player > div.html5-video-container > video')[0];
 
         if (!video || video.videoWidth === 0) {
             if (document.pictureInPictureElement) {

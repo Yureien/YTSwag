@@ -1,36 +1,35 @@
 $(".side-panel.style-scope.ytmusic-player-page:not('#lyrics-panel')").addClass("queue-panel"); // confusing with 2 panels
 chrome.storage.sync.get(['lyricsEnabled'], function (result) {
-    var lyricsEnabled = false;
-    lyricsEnabled = result['lyricsEnabled'] == true;
-    if (lyricsEnabled) {
-        $.get(chrome.extension.getURL('/lyrics/lyrics.html'), function(data) {
-            $($.parseHTML(data)).insertBefore($('#main-panel'));
-        });
+    var lyricsEnabled = result['lyricsEnabled'] === true;
+    // stores lyricsState on DOM
+    $(".title.ytmusic-player-bar")[0].setAttribute('lyrics', lyricsEnabled);
+    $.get(chrome.extension.getURL('/lyrics/lyrics.html'), function(data) {
+        $($.parseHTML(data)).insertBefore($('#main-panel'));
+    });
 
-        observer.observe(document.querySelector(".title.ytmusic-player-bar"), {
-            subtree: true,
-            attributes: true,
-            childList: true, 
-            characterData: true
-        });
+    observer.observe($(".title.ytmusic-player-bar")[0], {
+        subtree: true,
+        attributes: true,
+        childList: true,
+        characterData: true
+    });
 
-        timeObserver.observe(document.querySelector(".time-info"), {
-            subtree: true,
-            attributes: true,
-            childList: true, 
-            characterData: true
-        });
-    }
+    timeObserver.observe($(".time-info")[0], {
+        subtree: true,
+        attributes: true,
+        childList: true,
+        characterData: true
+    });
 });
 
 chrome.storage.sync.get(['subtitlesEnabled'], function (result) {
     var subtitlesEnabled = false;
     subtitlesEnabled = result['subtitlesEnabled'] === false;
     if (subtitlesEnabled) {
-        ccObserver.observe(document.querySelector(".player-wrapper.style-scope.ytmusic-player"), {
+        ccObserver.observe($(".player-wrapper.style-scope.ytmusic-player")[0], {
             subtree: true,
             attributes: true,
-            childList: true, 
+            childList: true,
             characterData: true
         });
     }
@@ -48,19 +47,45 @@ var ccObserver = new MutationObserver(function(mutations, observer) {
 });
 
 var observer = new MutationObserver(function(mutations, observer) {
-    if ($(".ytp-title-link.yt-uix-sessionlink")) {
-        var url = $(".ytp-title-link.yt-uix-sessionlink").attr('href');
-        var vid = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i)[1];
+    // get video ID by url or DOM
+    var url = location.href.includes('watch') ? location : $('.ytp-title-link.yt-uix-sessionlink')[0];
+    var vid = url.href.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i)[1];
+
+    togglePIP();
+    var style = lyricsDisplay();
+    // Append style only 1 time
+    if (!$('#lyrics-display')[0]) {
+        document.body.appendChild(style);
+    }
+    var lyricsEnabled = $(".title.ytmusic-player-bar")[0]
+        .getAttribute('lyrics') === "true";
+    if (lyricsEnabled) {
         if (vid !== lastVid) {
-            $("#lyrics-panel").show();
-            $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
-            $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
             $("#lyrics").text("");
             lastVid = vid;
             processOfficial(vid);
         }
+    } else {
+        // hide lyrics
+        style.textContent = style.textContent.replace('block', 'none');
     }
 });
+
+function togglePIP() {
+    // Close PIP case not video
+    const video = $('#movie_player > div.html5-video-container > video')[0];
+    if ((!video || video.videoWidth === 0) &&
+    document.pictureInPictureElement) {
+        document.exitPictureInPicture();
+    }
+}
+
+function lyricsDisplay() {
+    var style = $('#lyrics-display')[0] || document.createElement('style');
+    style.id = "lyrics-display";
+    style.textContent = "#lyrics-panel {display: block !important}";
+    return style;
+}
 
 function processOfficial(vid) {
     var surl = "https://video.google.com/timedtext?lang=en&v="+vid;
@@ -82,8 +107,8 @@ function processOfficial(vid) {
                 });
                 highlight = true;
             } else {
-                var byl = document.querySelector(".byline.ytmusic-player-bar");
-                var tit = document.querySelector(".title.ytmusic-player-bar");
+                var byl = $(".byline.ytmusic-player-bar")[0];
+                var tit = $(".title.ytmusic-player-bar")[0];
                 if (tit && byl)
                     processGenius(tit.textContent,
                                   byl.textContent);
@@ -109,16 +134,15 @@ function processGenius(title, byline) {
             if (!(!lyrics || 0 === lyrics.length) && lyrics != "[Instrumental]")
                 $("#lyrics").html(lyrics);
             else { // TODO: Better way to hide lyrics?
-                $("#lyrics-panel").hide();
-                $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
-                $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
+                var style = $('#lyrics-display')[0];
+                style.textContent = style.textContent.replace('block', 'none');
             }
         });
 }
 
 
 var timeObserver = new MutationObserver(function(mutations, observer) {
-    var strtime = document.querySelector(".time-info").textContent.trim().split("/")[0].trim().split(":");
+    var strtime = $(".time-info")[0].textContent.trim().split("/")[0].trim().split(":");
     var secs = parseInt(strtime[0])*60+parseInt(strtime[1]);
     var sub = $(".subtitle[data-at='"+secs+"']");
     if (sub.length) {
