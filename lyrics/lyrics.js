@@ -47,27 +47,30 @@ var ccObserver = new MutationObserver(function(mutations, observer) {
 });
 
 var observer = new MutationObserver(function(mutations, observer) {
-    // get video ID by url or DOM
-    var url = location.href.includes('watch') ? location : $('.ytp-title-link.yt-uix-sessionlink')[0];
-    var vid = url.href.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i)[1];
+    var titleLink = $('.ytp-title-link.yt-uix-sessionlink');
+    if (titleLink[0].href) {
+        // get video ID by url or DOM
+        var url = location.href.includes('watch') ? location : titleLink[0];
+        var vid = url.href.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i)[1];
 
-    togglePIP();
-    var style = lyricsDisplay();
-    // Append style only 1 time
-    if (!$('#lyrics-display')[0]) {
-        document.body.appendChild(style);
-    }
-    var lyricsEnabled = $(".title.ytmusic-player-bar")[0]
-        .getAttribute('lyrics') === "true";
-    if (lyricsEnabled) {
-        if (vid !== lastVid) {
-            $("#lyrics").text("");
-            lastVid = vid;
-            processOfficial(vid);
+        togglePIP();
+        var style = lyricsDisplay();
+        // Append style only 1 time
+        if (!$('#lyrics-display')[0]) {
+            document.body.appendChild(style);
         }
-    } else {
-        // hide lyrics
-        style.textContent = style.textContent.replace('block', 'none');
+        var lyricsEnabled = $(".title.ytmusic-player-bar")[0]
+            .getAttribute('lyrics') === "true";
+        if (lyricsEnabled) {
+            if (vid !== lastVid) {
+                $("#lyrics").text("");
+                lastVid = vid;
+                processOfficial(vid);
+            }
+        } else {
+            // hide lyrics
+            style.textContent = style.textContent.replace('block', 'none');
+        }
     }
 });
 

@@ -21,19 +21,15 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         setHTML(getHTML(el, "#right-icon"), getHTML(originEl[2], "#right-icon"));
     });
     // open settings on hover
-    $("body").on('mouseenter mouseleave',"#ytswag-toggle, #ytswag-settings", function () {
+    $("body").on('mouseenter mouseleave', "#ytswag-toggle, #ytswag-settings", function () {
         $("#ytswag-settings").toggle();
-    });
-    $(document).mousedown(function (e) {
-        var container = $("#ytswag-settings");
-        if (!container.is(e.target) && container.has(e.target).length === 0)
-            container.hide();
+        positionPopup();
     });
     $("paper-toggle-button").each(function () {
-        var action = $(this).data("action");
+        var btn = $(this);
+        var action = btn.data("action");
         if (!action) return;
         var key = action + "Enabled";
-        var btn = $(this);
         chrome.storage.sync.get([key], function (result) {
             if (result[key] !== undefined) {
                 var checked = result[key] === true;
@@ -45,10 +41,11 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         });
     });
     $("paper-toggle-button").click(function () {
-        var action = $(this).data('action');
+        var btn = $(this);
+        var action = btn.data('action');
         if (!action) return;
-        var key = $(this).data("action") + "Enabled";
-        let checked = $(this).attr('checked') ? true : false;
+        var key = btn.data("action") + "Enabled";
+        let checked = btn.attr('checked') ? true : false;
         chrome.storage.sync.set({ [key]: checked });
         if (action === 'lyrics') {
             // stores current state on DOM
@@ -61,11 +58,6 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
             // TODO: all actions without reload
             location.reload(true);
         }
-    });
-    $("#queueToggle").click(function () {
-        $(".queue-panel").toggle();
-        $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
-        $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
     });
 
     $('.start-picture-in-picture').click(async function () {
@@ -89,24 +81,25 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
             console.log(`> Error occurred while trying to start the pip mode: ${error}`);
         }
     });
-
-    positionPopup();
 });
 
+var menuPosition = 0;
 function positionPopup() {
-    $("#ytswag-settings").css({
-        left: ($("#ytswag-icon").offset().left - $("#ytswag-settings").width() + $("#ytswag-icon").width()) + "px",
-        top: ($("#ytswag-icon").offset().top + $("#ytswag-icon").height()) + "px"
-    });
+    var menu = $('iron-dropdown.ytmusic-popup-container')[0];
+    var curMenu = menu.offsetLeft + menu.offsetTop + menu.offsetHeight;
+    if (menuPosition !== curMenu) {
+        menuPosition = curMenu;
+        var settings = $("#ytswag-settings");
+        settings.css({
+            left: (menu.offsetLeft + menu.offsetWidth) + "px",
+            top: (menu.offsetTop + menu.offsetHeight - settings[0].offsetHeight) + "px"
+        });
+    }
 }
-
-$(window).resize(function () {
-    positionPopup();
-});
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 // Make songs double-clickable
-$(document).on('dblclick', '#contents > ytmusic-responsive-list-item-renderer, #contents > ytmusic-list-item-renderer, #contents > ytmusic-player-queue-item', function () {
+$(document).on('dblclick', 'ytmusic-responsive-list-item-renderer, ytmusic-list-item-renderer, ytmusic-player-queue-item', function () {
     $(this).find('.ytmusic-play-button-renderer').click();
 });
