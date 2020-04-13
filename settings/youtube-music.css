@@ -105,7 +105,11 @@ ytmusic-player[video-mode_] {
 
 ytmusic-player .html5-main-video {
   top: 0 !important;
+  left: 0 !important;
   width: 100% !important;
+}
+
+ytmusic-player[player-ui-state_="MINIPLAYER"] .html5-main-video {
   height: inherit !important;
 }
 
