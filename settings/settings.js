@@ -1,7 +1,27 @@
 $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
     $('#right-content').prepend($($.parseHTML(data)));
     $("#ytswag-settings").hide();
-    $("#ytswag-icon").click(function () {
+    // open ytsettings and dynamically add ytswag-toggle
+    $("paper-icon-button.ytmusic-settings-button").on('click', function () {
+        if ($("#ytswag-toggle")[0]) return;
+
+        // clone yt element, append and modify
+        var originEl = $('ytd-compact-link-renderer');
+        el = document.createElement('div');
+        el.id = "ytswag-toggle";
+        el.innerHTML = originEl[2].innerHTML;
+        $('yt-multi-page-menu-section-renderer')[1].appendChild(el);
+
+        var getHTML = (elem, find) => $(elem).find(find)[0];
+        var setHTML = (elem, other) => elem.innerHTML = other.innerHTML;
+
+        getHTML(el, "#label").innerHTML = `YTSwag Settings`;
+
+        setHTML(getHTML(el, "yt-icon"), getHTML(originEl[6], "yt-icon"));
+        setHTML(getHTML(el, "#right-icon"), getHTML(originEl[2], "#right-icon"));
+    });
+    // open settings on hover
+    $("body").on('mouseenter mouseleave',"#ytswag-toggle, #ytswag-settings", function () {
         $("#ytswag-settings").toggle();
     });
     $(document).mousedown(function (e) {
@@ -15,8 +35,13 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         var key = action + "Enabled";
         var btn = $(this);
         chrome.storage.sync.get([key], function (result) {
-            if (result[key] !== undefined)
-                btn.attr("checked", result[key] === true);
+            if (result[key] !== undefined) {
+                var checked = result[key] === true;
+                btn.attr("checked", checked);
+                if (action === 'queue' && !checked) {
+                    $(".side-panel:not(#lyrics-panel)").hide();
+                }
+            }
         });
     });
     $("paper-toggle-button").click(function () {
@@ -30,6 +55,8 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
             var title = $(".title.ytmusic-player-bar")[0];
             title.setAttribute('lyrics', checked);
             $("#lyrics-panel")[0].style.display = checked ? 'block' : 'none';
+        } else if (action === 'queue') {
+            $(".queue-panel").toggle();
         } else {
             // TODO: all actions without reload
             location.reload(true);
@@ -41,7 +68,7 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         $(".toggle-player-page-button.style-scope.ytmusic-player-bar").click();
     });
 
-    $('#start-picture-in-picture').click(async function () {
+    $('.start-picture-in-picture').click(async function () {
         const video = $('#movie_player > div.html5-video-container > video')[0];
 
         if (!video || video.videoWidth === 0) {
