@@ -48,28 +48,21 @@ var ccObserver = new MutationObserver(function(mutations, observer) {
 
 var observer = new MutationObserver(function(mutations, observer) {
     var titleLink = $('.ytp-title-link.yt-uix-sessionlink');
-    if (titleLink[0].href) {
+    var isOpen = location.href.includes('watch');
+    if ((titleLink[0] && titleLink[0].href) || isOpen) {
         // get video ID by url or DOM
-        var url = location.href.includes('watch') ? location : titleLink[0];
+        var url = isOpen ? location : titleLink[0];
         var vid = url.href.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i)[1];
 
         togglePIP();
-        var style = lyricsDisplay();
-        // Append style only 1 time
-        if (!$('#lyrics-display')[0]) {
-            document.body.appendChild(style);
-        }
         var lyricsEnabled = $(".title.ytmusic-player-bar")[0]
             .getAttribute('lyrics') === "true";
-        if (lyricsEnabled) {
-            if (vid !== lastVid) {
-                $("#lyrics").text("");
-                lastVid = vid;
-                processOfficial(vid);
-            }
-        } else {
-            // hide lyrics
-            style.textContent = style.textContent.replace('block', 'none');
+        $('ytmusic-player').toggleClass('no-lyrics', !lyricsEnabled);
+        $('#lyrics-panel').toggleClass('disabled', !lyricsEnabled);
+        if (lyricsEnabled && vid !== lastVid) {
+            $("#lyrics").text("Searching...");
+            lastVid = vid;
+            processOfficial(vid);
         }
     }
 });
@@ -81,13 +74,6 @@ function togglePIP() {
     document.pictureInPictureElement) {
         document.exitPictureInPicture();
     }
-}
-
-function lyricsDisplay() {
-    var style = $('#lyrics-display')[0] || document.createElement('style');
-    style.id = "lyrics-display";
-    style.textContent = "#lyrics-panel {display: block !important}";
-    return style;
 }
 
 function processOfficial(vid) {
@@ -134,11 +120,12 @@ function processGenius(title, byline) {
             var el = $('<div></div>');
             el.html(data);
             var lyrics = $(".lyrics", el).text().trim().replace(/\n/g, "<br>").trim();
-            if (!(!lyrics || 0 === lyrics.length) && lyrics != "[Instrumental]")
+            var hasLyrics = (!(!lyrics || 0 === lyrics.length) &&
+                lyrics != "[Instrumental]" && lyrics != "Instrumental");
+            $('ytmusic-player').toggleClass('no-lyrics', !hasLyrics);
+            $('#lyrics-panel').toggleClass('disabled', !hasLyrics);
+            if (hasLyrics) {
                 $("#lyrics").html(lyrics);
-            else { // TODO: Better way to hide lyrics?
-                var style = $('#lyrics-display')[0];
-                style.textContent = style.textContent.replace('block', 'none');
             }
         });
 }
