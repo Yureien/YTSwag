@@ -35,7 +35,8 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
                 var checked = result[key] === true;
                 btn.attr("checked", checked);
                 if (action === 'queue' && !checked) {
-                    $(".side-panel:not(#lyrics-panel)").hide();
+                    $('ytmusic-player').addClass('no-queue');
+                    $(".side-panel:not(#lyrics-panel)").addClass('disabled');
                 }
             }
         });
@@ -51,9 +52,10 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
             // stores current state on DOM
             var title = $(".title.ytmusic-player-bar")[0];
             title.setAttribute('lyrics', checked);
-            $("#lyrics-panel")[0].style.display = checked ? 'block' : 'none';
+            $("#lyrics-panel").toggleClass('disabled', !checked);
         } else if (action === 'queue') {
-            $(".queue-panel").toggle();
+            $('ytmusic-player').toggleClass('no-queue', !checked);
+            $(".queue-panel").toggleClass('disabled', !checked);
         } else {
             // TODO: all actions without reload
             location.reload(true);
