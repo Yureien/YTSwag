@@ -6,7 +6,8 @@
     "version_name": "0.3 beta",
     "permissions": [
         "https://genius.com/*",
-        "https://video.google.com/*"
+        "https://video.google.com/*",
+		"storage"
     ],
     "content_scripts": [
         {
