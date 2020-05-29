@@ -18,7 +18,8 @@
                 "jquery-3.4.1.min.js",
                 "settings/settings.js",
                 "lyrics/lyrics.js"
-            ]
+            ],
+            "css": ["./settings/youtube-music.css"]
         }
     ],
     "icons": {
