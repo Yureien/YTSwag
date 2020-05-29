@@ -1,6 +1,6 @@
 # YTSwag: Better YouTube Music (BETA)
 
-**Current Version: 0.2 beta**
+**Current Version: 0.3 beta**
 
 This is a yet-under-construction project to add new features to Youtube Music! Beta version for testing available!
 
@@ -18,12 +18,15 @@ or [install manually](#Installation).
 3. Hide/show queue
 4. Double clicking song makes it play
 5. Picture-in-Picture (PIP) mode for music videos (can be viewed accross multiple tabs and even windows!)
+6. A VERY cool theme :)
 
 ## Screenshots
 
-![Lyrics - YouTube CC](screenshots/lyrics.png)
+![Lyrics - YouTube CC](screenshots/YTM-1.png)
 
-![Lyrics - Genius](screenshots/lyrics-genius.png)
+![Lyrics - Genius](screenshots/YTM-3.png)
+
+![Lyrics - Settings](screenshots/YTM-2.png)
 
 ## Installation
 
@@ -39,14 +42,11 @@ or [install manually](#Installation).
 
 ## TODO list/Planned Features
 
-- [ ] ~~Eliminate jQuery from code~~
 - [ ] List available languages except english for CC Lyrics
-- [ ] Use MusixMatch as a lyrics backend (?)
-- [ ] Make option to select lyrics engines
-- [ ] Fix all the existing bugs
 - [ ] Add a Discord Rich Presence activity like Spotify
-- [ ] Better media button controls, especially on Linux (?)
-- [ ] Better theme/theme engine (Planned for future, no plans on implementing as of now)
+- [ ] Add Last.fm scrobbler
+- [x] ~~Better media button controls, especially on Linux (?)~~ Youtube fixed it
+- [x] ~~Better theme/theme engine~~ Implemented another theme
 
 ## Using
 

@@ -7,10 +7,5 @@ chrome.runtime.onMessage.addListener(
           .then(text => sendResponse(text));
         return true;
         break;
-      case "storeData":
-        
-        break;
-      case "retrieveData":
-        break;
     }
   });

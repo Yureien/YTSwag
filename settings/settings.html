@@ -1,39 +1,40 @@
 <style>
- #ytswag-settings {
-     position: fixed;
-     width: 200px;
-     padding: 8px 0;
-     background-color: #242424;
-     z-index: 103;
- }
- #ytswag-settings #caption-container {
-     padding: 8px 16px;
-     cursor: default;
- }
+    #ytswag-settings {
+        position: fixed;
+        width: 200px;
+        padding: 8px 0;
+        background-color: #242424;
+        z-index: 103;
+    }
 
- #ytswag-toggle:hover,
- #caption-container:hover {
-     background-color: #3a3a3a;
- }
+    #ytswag-settings #caption-container {
+        padding: 8px 16px;
+        cursor: default;
+    }
+
+    #ytswag-toggle:hover,
+    #caption-container:hover {
+        background-color: #3a3a3a;
+    }
 </style>
 <div id="ytswag-settings" class="style-scope ytmusic-popup-container">
     <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
         <div id="caption" class="style-scope ytd-toggle-item-renderer">
             Lyrics
         </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="lyrics"/>
+        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="lyrics" />
     </div>
     <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
         <div id="caption" class="style-scope ytd-toggle-item-renderer">
             Subtitles
         </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="subtitles"/>
+        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="subtitles" />
     </div>
     <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
         <div id="caption" class="style-scope ytd-toggle-item-renderer">
             Queue
         </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="queue"/>
+        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="queue" />
     </div>
     <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
         <div id="caption" class="style-scope ytd-toggle-item-renderer start-picture-in-picture">
