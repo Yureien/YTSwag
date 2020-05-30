@@ -1,6 +1,7 @@
 $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
-    $('#right-content').prepend($($.parseHTML(data)));
+    $('ytmusic-app').append($($.parseHTML(data)));
     $("#ytswag-settings").hide();
+
     // open ytsettings and dynamically add ytswag-toggle
     $("paper-icon-button.ytmusic-settings-button").on('click', function () {
         if ($("#ytswag-toggle")[0]) return;
@@ -20,11 +21,19 @@ $.get(chrome.extension.getURL('/settings/settings.html'), function (data) {
         setHTML(getHTML(el, "yt-icon"), getHTML(originEl[6], "yt-icon"));
         setHTML(getHTML(el, "#right-icon"), getHTML(originEl[2], "#right-icon"));
     });
+
     // open settings on hover
-    $("body").on('mouseenter mouseleave', "#ytswag-toggle, #ytswag-settings", function () {
-        $("#ytswag-settings").toggle();
+    var closeTimeout = null;
+    $("body").on('mouseenter', "#ytswag-toggle, #ytswag-settings", function () {
+        if (closeTimeout) clearTimeout(closeTimeout);
+        $("#ytswag-settings").show();
         positionPopup();
     });
+
+    $("body").on('mouseleave', "#ytswag-toggle, #ytswag-settings", function () {
+        closeTimeout = setTimeout(function () { $("#ytswag-settings").hide() }, 200); // delay before closing it, so not accidentally closed.
+    });
+
     $("paper-toggle-button").each(function () {
         var btn = $(this);
         var action = btn.data("action");
@@ -92,10 +101,14 @@ function positionPopup() {
     if (menuPosition !== curMenu) {
         menuPosition = curMenu;
         var settings = $("#ytswag-settings");
-        settings.css({
-            left: (menu.offsetLeft + menu.offsetWidth) + "px",
+        var css = {
             top: (menu.offsetTop + menu.offsetHeight - settings[0].offsetHeight) + "px"
-        });
+        }
+        if (menu.offsetLeft + menu.offsetWidth + settings[0].offsetWidth < window.innerWidth) // Add to right, enough space on right
+            css.left = (menu.offsetLeft + menu.offsetWidth) + "px";
+        else // Add to left, not enough space on right
+            css.left = (menu.offsetLeft - settings[0].offsetWidth) + "px";
+        settings.css(css);
     }
 }
 

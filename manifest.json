@@ -1,25 +1,27 @@
 {
     "manifest_version": 2,
     "name": "YTSwag: Better YouTube Music (BETA)",
-    "description": "Add nice features to YouTube Music! Lyrics, Utilities and more!",
-    "version": "0.3",
-    "version_name": "0.3 beta",
+    "description": "Add nice features to YouTube Music! Lyrics, utilities, themes and more!",
+    "version": "0.3.1",
+    "version_name": "0.3.1 beta",
     "permissions": [
         "https://genius.com/*",
         "https://video.google.com/*",
-		"storage"
+        "storage"
     ],
     "content_scripts": [
         {
-            "matches": ["https://music.youtube.com/*"],
+            "matches": [
+                "https://music.youtube.com/*"
+            ],
             "all_frames": true,
-            "run_at" : "document_end",
+            "run_at": "document_end",
             "js": [
                 "jquery-3.4.1.min.js",
                 "settings/settings.js",
-                "lyrics/lyrics.js"
-            ],
-            "css": ["settings/youtube-music.css"]
+                "lyrics/lyrics.js",
+                "styles/style.js"
+            ]
         }
     ],
     "icons": {
@@ -30,10 +32,13 @@
     },
     "web_accessible_resources": [
         "/settings/*",
-        "/lyrics/*"
+        "/lyrics/*",
+        "/styles/*"
     ],
     "background": {
         "persistent": false,
-        "scripts": ["background.js"]
+        "scripts": [
+            "background.js"
+        ]
     }
 }
