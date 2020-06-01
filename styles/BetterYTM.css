@@ -715,11 +715,16 @@ paper-listbox.ytmusic-menu-popup-renderer {
 #lyrics-panel {
     position: absolute;
     margin-top: 44rem;
-    margin-left: 7.1rem;
+    margin-left: 7rem;
     border: none;
     min-width: 42.4rem;
     height: 41.3rem; /*CHANGE*/
     background-color: #080808 !important;
+}
+
+#lyrics {
+    margin-left: 0.1rem;
+    line-height: 2rem;
 }
 
 .queue.scroller.scroller-on-hover.style-scope.ytmusic-player-page {
@@ -1094,9 +1099,9 @@ ytmusic-tastebuilder-renderer {
     display: none;
 }
 
-.thumbnail-overlay.ytmusic-responsive-list-item-renderer[display-style="MUSIC_ITEM_THUMBNAIL_OVERLAY_DISPLAY_STYLE_PERSISTENT"] {
+/*.thumbnail-overlay.ytmusic-responsive-list-item-renderer[display-style="MUSIC_ITEM_THUMBNAIL_OVERLAY_DISPLAY_STYLE_PERSISTENT"] {
     height: 42px !important;
-}
+}*/
 
 ytmusic-responsive-list-item-renderer {
     --ytmusic-responsive-list-item-thumbnail-size : 36px;
