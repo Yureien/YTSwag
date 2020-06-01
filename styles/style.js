@@ -1,10 +1,11 @@
-chrome.storage.sync.get(['customThemeEnabled'], function (result) {
-    // by default, enabled.
-    var customThemeEnabled = result['customThemeEnabled'] === true || result['customThemeEnabled'] === undefined;
-    if (!customThemeEnabled) return;
+chrome.storage.sync.get(['theme'], function (result) {
+    // by default, disabled.
+    var theme = result['theme'];
+    if (!theme) return;
 
     // Load CSS
-    var path = chrome.extension.getURL('/styles/youtube-music.css');
+    
+    var path = chrome.extension.getURL(`/styles/${theme}.css`);
     $('head').append($('<link>')
         .attr("rel", "stylesheet")
         .attr("type", "text/css")

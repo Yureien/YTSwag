@@ -1,6 +1,9 @@
 $(".side-panel.style-scope.ytmusic-player-page:not('#lyrics-panel')").addClass("queue-panel"); // confusing with 2 panels
-chrome.storage.sync.get(['lyricsEnabled'], function (result) {
+var defaultCCLang = 'en';
+
+chrome.storage.sync.get(['lyricsEnabled', 'ccLang'], function (result) {
     var lyricsEnabled = result['lyricsEnabled'] === true;
+    defaultCCLang = result['ccLang'] ? result['ccLang'] : 'en'; // Default, english.
     // stores lyricsState on DOM
     $(".title.ytmusic-player-bar")[0].setAttribute('lyrics', lyricsEnabled);
     $.get(chrome.extension.getURL('/lyrics/lyrics.html'), function (data) {
@@ -62,7 +65,7 @@ var observer = new MutationObserver(function (mutations, observer) {
         if (lyricsEnabled && vid !== lastVid) {
             $("#lyrics").text("Searching...");
             lastVid = vid;
-            processOfficial(vid);
+            processOfficial(vid, defaultCCLang);
         }
     }
 });
@@ -76,8 +79,9 @@ function togglePIP() {
     }
 }
 
-function processOfficial(vid) {
-    var surl = "https://video.google.com/timedtext?lang=en&v=" + vid;
+function processOfficial(vid, lang) {
+    console.log(lang);
+    var surl = `https://video.google.com/timedtext?lang=${lang}&v=${vid}`;
     chrome.runtime.sendMessage(
         { action: "scrape", url: surl },
         data => {
@@ -96,10 +100,14 @@ function processOfficial(vid) {
                 });
                 highlight = true;
             } else {
-                var byline = $(".byline.ytmusic-player-bar")[0];
-                var title = $(".title.ytmusic-player-bar")[0];
-                if (title && byline)
-                    processGenius(title.textContent, byline.textContent);
+                if (lang != 'en') // Try to fallback to english CC
+                    processOfficial(vid, 'en');
+                else { // Fallback to Genius
+                    var byline = $(".byline.ytmusic-player-bar")[0];
+                    var title = $(".title.ytmusic-player-bar")[0];
+                    if (title && byline)
+                        processGenius(title.textContent, byline.textContent);
+                }
             };
         });
 }

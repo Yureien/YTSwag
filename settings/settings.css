@@ -1,0 +1,29 @@
+body {
+    background-color: #1D1D1D;
+    color: #fff;
+    margin: 5% auto;
+    max-width: 73%;
+    font-size: 14px;
+}
+
+.title {
+    color: #FF0000;
+}
+
+.card {
+    margin: 4em 0;
+    background-color: #282828;
+}
+
+.card-title {
+    color: #FF0000;
+}
+
+.form {
+    padding-top: 1em;
+}
+
+/* fix for materialize select color */
+.select-dropdown {
+    color: #fff;
+}

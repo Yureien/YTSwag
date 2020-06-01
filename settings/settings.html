@@ -1,50 +1,61 @@
-<style>
-    #ytswag-settings {
-        position: fixed;
-        width: 200px;
-        padding: 8px 0;
-        background-color: #242424;
-        z-index: 3000;
-    }
+<!DOCTYPE html>
+<html>
 
-    #ytswag-settings #caption-container {
-        padding: 8px 16px;
-        cursor: default;
-    }
+<head>
+    <title>YTSwag Options</title>
 
-    #ytswag-toggle:hover,
-    #caption-container:hover {
-        background-color: #3a3a3a;
-    }
-</style>
-<div id="ytswag-settings" class="style-scope ytmusic-popup-container">
-    <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
-        <div id="caption" class="style-scope ytd-toggle-item-renderer">
-            Lyrics
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="materialize.min.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title center-align">YTSwag Options</h1>
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Theme</span>
+                <div class="form">
+                    <div class="input-field">
+                        <select class="inputs" id="theme-selector" name="theme">
+                            <option value="">None (Default)</option>
+                        </select>
+                        <label for="theme-selector">Select a theme</label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="lyrics" />
-    </div>
-    <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
-        <div id="caption" class="style-scope ytd-toggle-item-renderer">
-            Subtitles
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Lyrics</span>
+                <div class="form">
+                    <div class="input-field">
+                        <input type="text" maxlength="2" class="inputs white-text" id="cc-lang" name="ccLang">
+                        <label for="cc-lang">Enter two-letter language code (en for english, ja for japanese, etc.) for
+                            CC lyrics</label>
+                        <span class="helper-text white-text">If the langauge specified above is not available, it will
+                            fallback to english. Only for Youtube CC lyrics, not Genius lyrics.</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="subtitles" />
-    </div>
-    <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
-        <div id="caption" class="style-scope ytd-toggle-item-renderer">
-            Queue
+
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">About</span>
+                <p>YTSwag is an <a href="https://github.com/FadedCoder/YTSwag">open source project</a> and you too can
+                    contribute! Make a theme, add a feature, or even create an issue/feature request! Go to the link for
+                    more.
+                </p>
+            </div>
         </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="queue" />
-    </div>
-    <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
-        <div id="caption" class="style-scope ytd-toggle-item-renderer">
-            Custom Theme
-        </div>
-        <paper-toggle-button class="toggle style-scope ytmusic-setting-boolean-renderer" data-action="customTheme" checked />
-    </div>
-    <div id="caption-container" class="style-scope ytd-toggle-item-renderer">
-        <div id="caption" class="style-scope ytd-toggle-item-renderer start-picture-in-picture">
-            Picture-in-Picture
-        </div>
-    </div>
-</div>
+
+        <script src="/jquery-3.4.1.min.js"></script>
+        <script src="materialize.min.js"></script>
+        <script src="settings.js"></script>
+</body>
+
+</html>

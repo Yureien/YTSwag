@@ -7,5 +7,8 @@ chrome.runtime.onMessage.addListener(
           .then(text => sendResponse(text));
         return true;
         break;
+      case "openOptionsPage":
+        chrome.runtime.openOptionsPage();
+        break;
     }
   });
