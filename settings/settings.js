@@ -1,7 +1,8 @@
 // List available themes here!
 var themes = {
     // Display name : actual filename (without .css)
-    "Swag 1.0": "swag1.0"
+    "Swag 1.0": "swag1.0",
+    "Better YTM: Cleaner, smaller, more intuitive": "BetterYTM"
 };
 
 $(document).ready(function () {
