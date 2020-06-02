@@ -18,6 +18,7 @@
             "run_at": "document_end",
             "js": [
                 "jquery-3.4.1.min.js",
+                "utils/utils.js",
                 "loader/loader.js",
                 "lyrics/lyrics.js",
                 "styles/style.js"

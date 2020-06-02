@@ -62,9 +62,11 @@ $.get(chrome.extension.getURL('/loader/popup_options.html'), function (data) {
             var title = $(".title.ytmusic-player-bar")[0];
             title.setAttribute('lyrics', checked);
             $("#lyrics-panel").toggleClass('disabled', !checked);
+            reloadPlayer();
         } else if (action === 'queue') {
             $('ytmusic-player').toggleClass('no-queue', !checked);
             $(".queue-panel").toggleClass('disabled', !checked);
+            reloadPlayer();
         } else {
             // TODO: all actions without reload
             location.reload(true);

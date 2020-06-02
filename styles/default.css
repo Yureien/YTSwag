@@ -1,0 +1,11 @@
+#lyrics-panel {
+    margin: 0 var(--ytmusic-player-page-content-gap) 0 0;
+}
+
+#lyrics-panel.disabled {
+    display: none;
+}
+
+.queue-panel.disabled {
+    display: none;
+}
