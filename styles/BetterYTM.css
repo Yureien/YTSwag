@@ -714,11 +714,11 @@ paper-listbox.ytmusic-menu-popup-renderer {
 
 #lyrics-panel {
     position: absolute;
-    margin-top: 44rem;
+    margin-top: 50rem;
     margin-left: 7rem;
     border: none;
-    min-width: 42.4rem;
-    height: 41.3rem; /*CHANGE*/
+    min-width: 42.4rem; /*CHANGE WIDTH*/
+    height: 41.3rem; /*CHANGE HEIGHT*/
     background-color: #080808 !important;
 }
 
@@ -1117,4 +1117,39 @@ ytmusic-menu-renderer.ytmusic-visual-header-renderer {
 
 .ytmusic-section-list-renderer.memberships-and-purchases {
     margin-left: 30rem !important;
+}
+
+
+.title.ytmusic-responsive-list-item-renderer.complex-string {
+    padding-top: 0.25rem;
+}
+
+.ytmusic-grid-renderer {
+    margin-left: 0.2rem;
+    margin-right: 1rem;
+}
+
+#items.ytmusic-grid-renderer {
+    margin-left: 3.1rem;
+}
+
+.ytmusic-grid-renderer[button-style="STYLE_OUTLINE_BORDER"] {
+    margin-left: -1.5rem;
+}
+
+.ytmusic-section-list-renderer[grid-type="new_releases"] {
+    margin-left: 24.2rem !important;
+}
+
+.ytmusic-grid-header-renderer {
+    margin-left: 3.1rem;
+}
+
+ytmusic-two-row-item-renderer.ytmusic-grid-renderer[aspect-ratio="MUSIC_TWO_ROW_ITEM_THUMBNAIL_ASPECT_RATIO_SQUARE"], ytmusic-two-row-item-renderer.ytmusic-grid-renderer[aspect-ratio="MUSIC_TWO_ROW_ITEM_THUMBNAIL_ASPECT_RATIO_RECTANGLE_16_9"] {
+    margin-left: 0 !important;
+    margin-right: 2rem !important;
+}
+
+.ytmusic-section-list-renderer[grid-type="moods_and_genres"] {
+    padding-bottom: 1.5rem;
 }
