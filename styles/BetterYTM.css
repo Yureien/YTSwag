@@ -718,6 +718,9 @@ paper-listbox.ytmusic-menu-popup-renderer {
     border: none;
     min-width: 42.4rem; /*CHANGE WIDTH*/
     height: 41.3rem; /*CHANGE HEIGHT*/
+    padding-top: 2em;
+    min-width: 42.4rem;
+    height: 41.3rem; /*CHANGE*/
     background-color: #080808 !important;
 }
 

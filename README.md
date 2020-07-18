@@ -1,6 +1,6 @@
 # YTSwag: Better YouTube Music (BETA)
 
-**Current Version: 0.3 beta**
+**Current Version: 0.4 beta**
 
 This is a yet-under-construction project to add new features to Youtube Music! Beta version for testing available!
 

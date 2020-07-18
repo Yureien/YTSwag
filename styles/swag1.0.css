@@ -77,11 +77,11 @@ ytmusic-player-bar:hover {
 }
 
 .queue-panel.disabled {
-  right: -800px;
+  right: -800px !important;
 }
 
 #lyrics-panel.disabled {
-  left: -310px;
+  left: -310px !important;
 }
 
 .top-bar.ytmusic-player-page {

@@ -80,7 +80,6 @@ function togglePIP() {
 }
 
 function processOfficial(vid, lang) {
-    console.log(lang);
     var surl = `https://video.google.com/timedtext?lang=${lang}&v=${vid}`;
     chrome.runtime.sendMessage(
         { action: "scrape", url: surl },
@@ -174,6 +173,8 @@ function processGenius(title, artist) {
             $('ytmusic-player').toggleClass('no-lyrics', !hasLyrics);
             $('#lyrics-panel').toggleClass('disabled', !hasLyrics);
             if (hasLyrics) $("#lyrics").html(lyrics);
+            else $("#lyrics").text("No lyrics found!");
+            reloadPlayer();
         });
 }
 

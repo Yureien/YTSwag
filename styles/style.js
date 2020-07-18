@@ -1,7 +1,6 @@
 chrome.storage.sync.get(['theme'], function (result) {
-    // by default, disabled.
-    var theme = result['theme'];
-    if (!theme) return;
+    // by default, disabled. (use default.css cause some issues with lyrics)
+    var theme = result['theme'] ? result['theme'] : 'default';
 
     // Load CSS
     
