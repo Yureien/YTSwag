@@ -1,5 +1,9 @@
 # YTSwag: Better YouTube Music (BETA)
 
+**NOTE: Project no longer actively maintained**
+I've moved on to Spotify now, and hence don't get enough time to contribute to Youtube Music. Maybe one day I'll return to YTM if they implement some much necessary features on the backend side.
+**I'll still accept PRs** but won't be actively contributing to this.
+
 **Current Version: 0.4 beta**
 
 This is a yet-under-construction project to add new features to Youtube Music! Beta version for testing available!
